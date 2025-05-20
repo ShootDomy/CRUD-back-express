@@ -30,3 +30,15 @@ export const actualizarCliente = async (clienteDto, id) => {
 
   return rows[0];
 };
+
+export const eliminarCliente = async (id) => {
+  const result = await query(`DELETE FROM clients_tb WHERE id = $1`, [id]);
+
+  return result.rowCount > 0;
+};
+
+export const getClienteById = async (id) => {
+  const { rows } = await query(`SELECT * FROM clients_tb WHERE id = $1`, [id]);
+
+  return rows;
+};

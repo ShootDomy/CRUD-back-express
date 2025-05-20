@@ -51,3 +51,26 @@ export const actualizarCliente = async (req, res) => {
     res.status(500).json({ message: `Internal Server Error, ${error}` });
   }
 };
+
+export const eliminarCliente = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Falta Id" });
+    }
+
+    const cliente = await clienteService.eliminarCliente(id);
+    console.log("cliente", cliente);
+
+    if (!cliente) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+
+    res.status(200).json({ message: "Cliente eliminado" });
+  } catch (error) {
+    if (error.driverError) {
+      res.status(500).json({ message: "ERROR AL ELIMINAR EL CLIENTES" });
+    }
+    res.status(500).json({ message: `Internal Server Error, ${error}` });
+  }
+};
