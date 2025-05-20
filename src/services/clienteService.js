@@ -42,3 +42,12 @@ export const getClienteById = async (id) => {
 
   return rows;
 };
+
+export const getClienteBuscar = async (termino) => {
+  const { rows } = await query(
+    `SELECT * FROM clients_tb WHERE nombre ILIKE $1 OR email ILIKE $1`,
+    [`%${termino}%`]
+  );
+
+  return rows;
+};
