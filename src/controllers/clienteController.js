@@ -27,3 +27,27 @@ export const crearCliente = async (req, res) => {
     res.status(500).json({ message: `Internal Server Error, ${error}` });
   }
 };
+
+export const actualizarCliente = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Falta Id" });
+    }
+
+    const clienteDto = req.body;
+
+    const cliente = await clienteService.actualizarCliente(clienteDto, id);
+
+    if (!cliente) {
+      return res.status(404).json({ message: "Cliente no encontrado" });
+    }
+
+    res.status(201).json(cliente);
+  } catch (error) {
+    if (error.driverError) {
+      res.status(500).json({ message: "ERROR AL CREAR EL CLIENTES" });
+    }
+    res.status(500).json({ message: `Internal Server Error, ${error}` });
+  }
+};

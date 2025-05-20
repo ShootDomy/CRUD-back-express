@@ -7,4 +7,6 @@ router.get("/clientes", clienteController.getClientes);
 
 router.post("/clientes", clienteController.crearCliente);
 
+router.put("/clientes/:id", clienteController.actualizarCliente);
+
 export default router;

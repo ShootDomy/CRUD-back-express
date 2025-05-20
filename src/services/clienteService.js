@@ -17,3 +17,16 @@ export const crearCliente = async (clienteDto) => {
 
   return rows[0];
 };
+
+export const actualizarCliente = async (clienteDto, id) => {
+  const { nombre, email, trabajo, rate, estado } = clienteDto;
+
+  const { rows } = await query(
+    `update clients_tb 
+    set nombre = $1, email = $2, trabajo = $3, rate = $4, estado = $5 
+    where id = $6 RETURNING *`,
+    [nombre, email, trabajo, rate, estado, id]
+  );
+
+  return rows[0];
+};
