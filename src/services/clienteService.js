@@ -1,7 +1,7 @@
 import { query } from "../db.js";
 
 export const getClientes = async () => {
-  const { rows } = await query(`SELECT * FROM clients_tb`);
+  const { rows } = await query(`SELECT * FROM clients_tb ORDER BY nombre ASC`);
 
   return rows;
 };
@@ -45,7 +45,7 @@ export const getClienteById = async (id) => {
 
 export const getClienteBuscar = async (termino) => {
   const { rows } = await query(
-    `SELECT * FROM clients_tb WHERE nombre ILIKE $1 OR email ILIKE $1`,
+    `SELECT * FROM clients_tb WHERE nombre ILIKE $1 OR email ILIKE $1 OR trabajo ILIKE $1`,
     [`%${termino}%`]
   );
 
